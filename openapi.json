@@ -269,7 +269,8 @@
                 "type": "object",
                 "properties": {
                   "file": {
-                    "nullable": true
+                    "type": "string",
+                    "format": "binary"
                   }
                 }
               }
@@ -342,22 +343,7 @@
             "content": {
               "text/event-stream": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "progress": {
-                      "type": "number",
-                      "minimum": 0,
-                      "maximum": 100
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "progress"
-                  ]
+                  "type": "string"
                 }
               }
             }

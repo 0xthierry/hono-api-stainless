@@ -180,7 +180,10 @@ app.openapi(
         content: {
           "multipart/form-data": {
             schema: z.object({
-              file: z.any(),
+              file: z.any().openapi({
+                type: "string",
+                format: "binary",
+              }),
             }),
           },
         },
@@ -241,10 +244,10 @@ app.openapi(
         required: true,
         schema: {
           type: "string",
-          format: "uuid"
+          format: "uuid",
         },
-        description: "The ID of the todo"
-      }
+        description: "The ID of the todo",
+      },
     ],
     responses: {
       200: {
@@ -252,25 +255,28 @@ app.openapi(
         content: {
           "text/event-stream": {
             schema: {
+              type: "string",
+              /* 
+              not supported by stainless
               type: "object",
               properties: {
                 id: {
                   type: "string",
-                  format: "uuid"
+                  format: "uuid",
                 },
                 progress: {
                   type: "number",
                   minimum: 0,
-                  maximum: 100
-                }
+                  maximum: 100,
+                },
               },
-              required: ["id", "progress"]
-            }
-          }
-        }
+              required: ["id", "progress"], */
+            },
+          },
+        },
       },
     },
-    tags: ["Todos"]
+    tags: ["Todos"],
   }),
   // @ts-ignore
   // https://github.com/honojs/middleware/issues/735

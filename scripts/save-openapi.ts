@@ -10,6 +10,7 @@ try {
   // Fetch the OpenAPI JSON
   const openapi = await $`curl -s http://localhost:3000/docs`.text();
   await $`echo ${JSON.stringify(JSON.parse(openapi), null, 2)} > openapi.json`;
+  await $`echo ${JSON.stringify(JSON.parse(openapi), null, 2)} > docs/api-reference/openapi.json`;
   console.log("OpenAPI JSON saved successfully");
 } catch (error) {
   console.error("Failed to fetch OpenAPI JSON:", error);
