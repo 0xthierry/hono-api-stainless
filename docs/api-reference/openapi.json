@@ -321,12 +321,46 @@
     },
     "/todos/:id/progress": {
       "get": {
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "description": "The ID of the todo"
+          }
+        ],
         "tags": [
           "Todos"
         ],
         "responses": {
           "200": {
-            "description": "Streams the upload progress using SSE"
+            "description": "Streams the upload progress using SSE",
+            "content": {
+              "text/event-stream": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "progress": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "progress"
+                  ]
+                }
+              }
+            }
           }
         }
       }

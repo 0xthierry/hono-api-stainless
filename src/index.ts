@@ -234,13 +234,47 @@ app.openapi(
   createRoute({
     method: "get",
     path: "/todos/:id/progress",
+    parameters: [
+      {
+        name: "id",
+        in: "path",
+        required: true,
+        schema: {
+          type: "string",
+          format: "uuid"
+        },
+        description: "The ID of the todo"
+      }
+    ],
     responses: {
       200: {
         description: "Streams the upload progress using SSE",
+        content: {
+          "text/event-stream": {
+            schema: {
+              type: "object",
+              properties: {
+                id: {
+                  type: "string",
+                  format: "uuid"
+                },
+                progress: {
+                  type: "number",
+                  minimum: 0,
+                  maximum: 100
+                }
+              },
+              required: ["id", "progress"]
+            }
+          }
+        }
       },
     },
-    tags: ["Todos"],
+    tags: ["Todos"]
   }),
+  // @ts-ignore
+  // https://github.com/honojs/middleware/issues/735
+  // https://github.com/honojs/hono/issues/3309
   (c) => {
     const id = c.req.param("id");
     let messageId = 0;
