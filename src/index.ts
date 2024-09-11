@@ -237,18 +237,13 @@ app.openapi(
   createRoute({
     method: "get",
     path: "/todos/:id/progress",
-    parameters: [
-      {
-        name: "id",
-        in: "path",
-        required: true,
-        schema: {
-          type: "string",
-          format: "uuid",
-        },
-        description: "The ID of the todo",
-      },
-    ],
+    request: {
+      /* 
+      not supported by stainless
+      params: z.object({
+        id: z.string().uuid(),
+      }), */
+    },
     responses: {
       200: {
         description: "Streams the upload progress using SSE",

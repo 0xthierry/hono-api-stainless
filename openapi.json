@@ -322,18 +322,6 @@
     },
     "/todos/:id/progress": {
       "get": {
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "description": "The ID of the todo"
-          }
-        ],
         "tags": [
           "Todos"
         ],
